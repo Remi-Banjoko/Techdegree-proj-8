@@ -46,6 +46,10 @@ body {
 
     }
 
+    .prev{
+        cursor: pointer;
+    }
+
     .hidden {
         display: none;
         }

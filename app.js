@@ -57,9 +57,17 @@ function displayModal(index) {
     <p class="address">${street}, ${state} ${postcode}</p>
     <p>Birthday:
     ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
+    
     <div class= "modal-nav" >
-        <p class = "prev" > <--- Prev </p>
-        <p class = "next" > Next ---> </p>
+        
+        <div class="prev">
+            <p> <--- Prev </p>
+        </div>
+
+        <div class="next">
+            <p > Next ---> </p>
+        </div>
+
     </div>
     </div>
     `;
@@ -81,14 +89,12 @@ function displayModal(index) {
         
         });
 
-
         modalPrev.addEventListener('click', () => {
 
             console.log("ITT'SSS WORRRKKINNGG");
             const card = e.target.closest(".card");
             const index = card.getAttribute('data-index');
-            overlay.classList.remove("hidden");
-            // displayModal(index-1);
+            displayModal(index--);
 
 
         });
