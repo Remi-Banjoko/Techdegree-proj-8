@@ -84,7 +84,7 @@ function displayModal(index) {
 
         modalPrev.addEventListener('click', () => {
 
-            console.log("HEYYYYYY");
+            console.log("ITT'SSS WORRRKKINNGG");
             const card = e.target.closest(".card");
             const index = card.getAttribute('data-index');
             overlay.classList.remove("hidden");
