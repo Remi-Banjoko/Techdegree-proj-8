@@ -15,29 +15,54 @@
 
     <header>
         <h1>Awesome Startup Employee Directory</h1>
+
+        <input type="search" id="search" name="user_input" placeholder="Search" class="search_box" onkeyup="myFunction"> 
+
     </header>
 
 
 
 
-    <main class="grid-container">
+    <main class="grid-container" id = "gc">
 
-        <div class="card">
-        
-            <img class="avatar" src="member-1.jpg" />
-        
-            <div class="text-container">
-        
-                <h2 class="name">Haleigh Macchiarella</h2>
-        
-                <p class="email">dtucker@yakitri.edu</p>
-        
-                <p class="address">Chicago</p>
-        
+    
+
+
+
+
+    </main>
+
+    <div class="overlay hidden">
+        <div class="modal">
+            <p class="modal-close">X</p>
+           
+            <div class="modal-content">
+                <!-- modal information will be added with JS here -->
+                <img class="avatar"  />
+              
+                <div class="text-container">
+                    <h2 class="name">Haleigh Macchiarella</h2>
+                    <p class="email">dtucker@yakitri.edu</p>
+                    <p class="address">Chicago</p>
+                    <hr />
+                    <p>(593) 364-3249</p>
+                    <p class="address">123 Anywhere St, WV 84814</p>
+                    <p>Birthday: 01/04/85</p>
+                </div>
+                <div class= "modal-nav" >
+                    <p class = "prev" > <--- Prev </p>
+                    <p class = "next" > Next ---> </p>
+                </div>
+            
             </div>
         </div>
-        
-        <!-- add 11 copies here -->
-    </main>
+    </div>
+
+
+
+
+
+
+    <script src="app.js"></script>
 
 </body>
