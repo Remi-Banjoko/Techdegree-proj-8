@@ -5,15 +5,13 @@ const gridContainer = document.querySelector(".grid-container");
 const overlay = document.querySelector(".overlay");
 const modalContainer = document.querySelector(".modal-content");
 const modalClose = document.querySelector(".modal-close");
-const modalPrev = document.querySelector(".prev");
-const modalNext = document.querySelector(".next");
+let currentIndex=0;
 
 fetch(urlAPI)
 .then(res => res.json())
 .then(res => res.results)
 .then(displayEmployees)
 .catch(err => console.log(err))
-
 
 
 function displayEmployees(employeeData) {
@@ -54,7 +52,7 @@ function displayModal(index) {
     <p class="address">${city}</p>
     <hr />
     <p>${phone}</p>
-    <p class="address">${street}, ${state} ${postcode}</p>
+    <p class="address">${street.number} ${street.name}, ${state} ${postcode}</p>
     <p>Birthday:
     ${date.getMonth()}/${date.getDate()}/${date.getFullYear()}</p>
     
@@ -71,9 +69,54 @@ function displayModal(index) {
     </div>
     </div>
     `;
+    console.log(`${street.number} , ${street.name}`);
+    currentIndex = index;
     overlay.classList.remove("hidden");
     modalContainer.innerHTML = modalHTML;
+
+    let modalPrev = document.querySelector(".prev");
+    let modalNext = document.querySelector(".next");
+
+    if(currentIndex <= 0){
+
+        modalPrev.classList.add("hidden");
+
+    }  else if(currentIndex >= 11) {
+
+        modalNext.classList.add("hidden");
+
     }
+
+    
+    modalPrev.addEventListener('click', () => {
+
+       
+        console.log(currentIndex);
+        currentIndex = (currentIndex - 1);
+      
+        displayModal(currentIndex);
+        
+        console.log(currentIndex);
+
+    });
+
+    modalNext.addEventListener('click', () => {
+
+        
+       
+        console.log(currentIndex);
+        currentIndex+= 1;
+      
+        displayModal(currentIndex);
+        
+        console.log(currentIndex);
+
+    });
+
+    
+    
+    }
+    
 
     gridContainer.addEventListener('click', e => {
         // make sure the click is not on the gridContainer itself
@@ -81,23 +124,19 @@ function displayModal(index) {
         if(e.target !== gridContainer) {
         
             // select the card element based on its proximity to actual element clicked
-       
+
         const card = e.target.closest(".card");
-        const index = card.getAttribute('data-index');
-        displayModal(index);
+        currentIndex = card.getAttribute('data-index');
+        console.log(typeof(currentIndex));
+        displayModal(parseInt(currentIndex));
+
+        
         }
+
         
         });
 
-        modalPrev.addEventListener('click', () => {
-
-            console.log("ITT'SSS WORRRKKINNGG");
-            const card = e.target.closest(".card");
-            const index = card.getAttribute('data-index');
-            displayModal(index--);
-
-
-        });
+       
 
 
         modalClose.addEventListener('click', () => {
@@ -109,56 +148,62 @@ function displayModal(index) {
 
              document.getElementById("search").addEventListener("keyup", myFunction);
 
-            // function myFunction() {
-
-            //     var user_input = document.getElementById("search").value;
-            //     var filter =  user_input.toUpperCase();
-            //     // var names = document.getElementsByClassName('name');
-            //     var names = document.querySelectorAll('.name');
-            //     var people = document.querySelectorAll('.card');
-
-            //     console.log(names);
-            //     console.log(people);
-            //     console.log(employees);
-
-            //     for (var i = 0; i < names.length; i++) {
-            //         if(names[i].textContent.toUpperCase().includes(filter)) {
-            //             names[i].classList.remove("hidden");
-            //         } else {
-            //             people[i].classList.add("hidden");
-            //         }
-            //     }
-
-
-            //   }
-
-
-
-
             function myFunction() {
+
                 var user_input = document.getElementById("search").value;
                 var filter =  user_input.toUpperCase();
-                // var  = document.getElementById("image_gallery");
-                var gallery_entries = gallery.getElementsByClassName('name');
-              //   var gallery_captions = li.getAttribute("data-caption");
-              
-              
-              
-                for( let i = 0; i < gallery_entries.length; i++){
-              
-                  var a = gallery_entries[i].getElementsByTagName("a")[0];
-                  console.log(a.getAttribute("data-caption"));
-                  var txtValue = a.getAttribute("data-caption") || a.getAttribute("alt");
-                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                      gallery_entries[i].style.display = "list-item";
-                  } else {
-                      gallery_entries[i].style.display = "none";
-                  }
-              
-                  // let caption = image_cap`${i}`.getAttribute("data-caption");
-                  // console.log(caption);
-                  
-                  }
-                  
-              
+                // var names = document.getElementsByClassName('name');
+                var names = document.querySelectorAll('.name');
+                
+                var people = document.querySelectorAll('.card');
+
+                // console.log(names);
+                // console.log(people);
+                // console.log(employees);
+
+
+                console.log( people);
+                // console.log(people[0]);
+                // console.log(employees);
+
+                for (var i = 0; i < names.length; i++) {
+                    if(names[i].textContent.toUpperCase().includes(filter)) {
+                        people[i].style.display= "flex";
+                    } else {
+                        people[i].style.display="none";
+                    }
+                }
+
+                
               }
+
+
+
+
+            // function myFunction() {
+            //     var user_input = document.getElementById("search").value;
+            //     var filter =  user_input.toUpperCase();
+            //     // var  = document.getElementById("image_gallery");
+            //     var gallery_entries = gallery.getElementsByClassName('name');
+            //   //   var gallery_captions = li.getAttribute("data-caption");
+              
+              
+              
+            //     for( let i = 0; i < gallery_entries.length; i++){
+              
+            //       var a = gallery_entries[i].getElementsByTagName("a")[0];
+            //       console.log(a.getAttribute("data-caption"));
+            //       var txtValue = a.getAttribute("data-caption") || a.getAttribute("alt");
+            //       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            //           gallery_entries[i].style.display = "list-item";
+            //       } else {
+            //           gallery_entries[i].style.display = "none";
+            //       }
+              
+            //       // let caption = image_cap`${i}`.getAttribute("data-caption");
+            //       // console.log(caption);
+                  
+            //       }
+                  
+              
+            //   }
